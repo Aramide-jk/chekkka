@@ -1,0 +1,12 @@
+import axios from "axios";
+
+export default function getErrorMessage(
+	err: unknown,
+	fallback = "Something went wrong",
+): string {
+	if (axios.isAxiosError(err)) {
+		return err.response?.data?.message ?? err.message ?? fallback;
+	}
+	if (err instanceof Error) return err.message;
+	return fallback;
+}
